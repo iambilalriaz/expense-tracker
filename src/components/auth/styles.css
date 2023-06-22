@@ -1,0 +1,34 @@
+.app-logo {
+  animation: app-logo-opacity-anim 1.5s forwards,
+    app-logo-placement-anim 1s 1s forwards;
+}
+@keyframes app-logo-opacity-anim {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes app-logo-placement-anim {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100px);
+  }
+}
+.google-button {
+  animation: google-btn-anim 0.5s 2s forwards;
+  opacity: 0;
+}
+
+@keyframes google-btn-anim {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

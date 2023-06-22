@@ -1,0 +1,13 @@
+.welcome-message {
+  animation: welcome-anim 1s forwards;
+}
+@keyframes welcome-anim {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

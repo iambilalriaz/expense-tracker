@@ -1,0 +1,27 @@
+.menu-anim-active {
+  animation: open-menu 0.3s ease-in-out forwards;
+}
+.menu-anim-close {
+  animation: close-menu 0.3s ease-in-out forwards;
+}
+
+@keyframes open-menu {
+  from {
+    display: none;
+    transform: translateY(-100vh);
+  }
+  to {
+    display: block;
+    transform: translateY(0);
+  }
+}
+@keyframes close-menu {
+  from {
+    display: block;
+    transform: translateY(0);
+  }
+  to {
+    display: none;
+    transform: translateY(-100vh);
+  }
+}
