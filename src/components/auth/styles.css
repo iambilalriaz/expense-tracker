@@ -1,6 +1,6 @@
 .app-logo {
-  animation: app-logo-opacity-anim 1.5s forwards,
-    app-logo-placement-anim 1s 1s forwards;
+  animation: app-logo-opacity-anim 1s forwards,
+    app-logo-placement-anim 0.5s 1s forwards;
 }
 @keyframes app-logo-opacity-anim {
   from {
@@ -20,7 +20,7 @@
   }
 }
 .google-button {
-  animation: google-btn-anim 0.5s 2s forwards;
+  animation: google-btn-anim 0.2s 1.5s forwards;
   opacity: 0;
 }
 

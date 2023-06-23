@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import { doc, getFirestore, setDoc } from 'firebase/firestore/lite';
+import { getFirestore } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -11,7 +11,7 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
-console.log({ firebaseConfig });
+
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
@@ -20,17 +20,4 @@ provider.setCustomParameters({ prompt: 'select_account' });
 
 export const signInWithGoogle = () => firebase.auth().signInWithPopup(provider);
 
-const db = getFirestore(firebaseApp);
-
-export const inserUser = async (
-  userId: string,
-  name: string,
-  email: string,
-  imageURL: string
-) =>
-  setDoc(doc(db, 'users', email), {
-    userId,
-    name,
-    email,
-    imageURL,
-  });
+export const firestoreDB = getFirestore(firebaseApp);

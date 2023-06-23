@@ -1,8 +1,8 @@
 import { RootState } from '@app/store';
 import { User } from '@data-types';
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { inserUser, signInWithGoogle } from '@services/firebase';
-
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { signInWithGoogle } from '@services/firebase';
+import { inserUser } from '@services/queries';
 type InitialState = {
   appUser: User | null;
   isLoggingIn: boolean;
@@ -51,18 +51,20 @@ export const authSlice = createSlice({
     },
     getLoginState: (state) => {
       state.appUser =
-        JSON.parse(localStorage.getItem('appUser')) || (null as User);
+        JSON.parse(localStorage.getItem('appUser') as string) || (null as User);
     },
   },
   extraReducers(builder) {
-    builder.addCase(
-      userLogin.fulfilled,
-      (state, action: PayloadAction<User>) => {
-        state.appUser = action.payload;
-        localStorage.setItem('appUser', JSON.stringify(action.payload));
-      }
-    );
+    builder.addCase(userLogin.pending, (state) => {
+      state.isLoggingIn = true;
+    });
+    builder.addCase(userLogin.fulfilled, (state, action) => {
+      state.isLoggingIn = false;
+      state.appUser = action.payload as User;
+      localStorage.setItem('appUser', JSON.stringify(action.payload));
+    });
     builder.addCase(userLogin.rejected, (state) => {
+      state.isLoggingIn = false;
       state.appUser = null;
     });
   },

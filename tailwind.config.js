@@ -8,6 +8,7 @@ export default {
         secondary: '#28282B',
         light: '#fbfbfb',
         outline: '#D3D3D3',
+        error: '#ff726f',
       },
     },
   },

@@ -6,6 +6,7 @@ import { selectAuth, userLogin } from './authSlice';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '@components/common/spinner';
+
 const Login = () => {
   const { appUser, isLoggingIn } = useAppSelector(selectAuth);
   const dispatch = useAppDispatch();
@@ -25,7 +26,10 @@ const Login = () => {
   return (
     <div className='h-screen w-screen bg-secondary text-2xl grid place-items-center text-light'>
       {isLoggingIn ? (
-        <Spinner />
+        <div>
+          <Spinner />
+          <p>Logging in....</p>
+        </div>
       ) : (
         <div className='flex flex-col justify-center items-center'>
           <div className='app-logo flex flex-col justify-center items-center'>
