@@ -9,10 +9,32 @@ export type User = {
 export type MonthlyBudget = {
   month: number;
   year: number;
-  income: number;
+  userId: string;
+  monthlyIncome: number;
+  expenseBudget: ExpenseBudget;
 } | null;
 
-export type ExpenseBudgetInput = {
-  type: string;
-  allocated: number;
+export type ExpenseBudget = {
+  medical: number | string;
+  shopping: number | string;
+  utilityBills: number | string;
+  rents: number | string;
+  fees: number | string;
+  food: number | string;
+  mobile: number | string;
+  maintainance: number | string;
+  remittance: number | string;
+  gifts: number | string;
+  committee: number | string;
+  lendAmount: number | string;
+  borrowAmount: number | string;
+  charity: number | string;
+  investments: number | string;
+  transportation: number | string;
+  entertainment: number | string;
+  subscriptions: number | string;
+  insurance: number | string;
+  personalCare: number | string;
+  savings: number | string;
+  other: number | string;
 };

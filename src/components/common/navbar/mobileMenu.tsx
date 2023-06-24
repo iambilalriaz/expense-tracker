@@ -44,7 +44,7 @@ const MobileMenu = ({
           Logout
         </p>
         <p
-          className='mt-8 text-3xl font-bold text-light'
+          className='mt-8 text-3xl cursor-pointer font-bold text-light'
           onClick={closeMobileMenu}
         >
           <SlClose />

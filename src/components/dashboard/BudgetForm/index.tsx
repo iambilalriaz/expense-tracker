@@ -3,11 +3,19 @@ import {
   BsFillArrowLeftCircleFill,
   BsFillArrowRightCircleFill,
 } from 'react-icons/bs';
-import { getRemainingBalance } from './selectors';
+import {
+  getAllExpensesBudget,
+  getMonthlyIncome,
+  getRemainingBalance,
+} from './selectors';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 import { InputIndex, currentInput } from '../InputsWizard/data';
+import '../index.css';
+import { addMonthlyBudget } from '@services/queries';
 const BudgetForm = () => {
   const remainingBalance = useAppSelector(getRemainingBalance);
+  const monthlyIncome = useAppSelector(getMonthlyIncome);
+  const allExpensesBudget = useAppSelector(getAllExpensesBudget);
   const [currentInputIdx, setCurrentInputIdx] = useState(0);
 
   const goBackward = () => {
@@ -16,14 +24,10 @@ const BudgetForm = () => {
     }
   };
   const goForward = () => {
-    console.log({
-      currentInputIdx,
-      length: Object.keys(currentInput).length,
-    });
     if (currentInputIdx + 1 < Object.keys(currentInput)?.length) {
       setCurrentInputIdx((prevState) => prevState + 1);
     } else {
-      // alert('Please select a state before');
+      submitBudget();
     }
   };
 
@@ -38,11 +42,20 @@ const BudgetForm = () => {
     dispatch(setterFn(+e?.target?.value));
   };
 
+  const submitBudget = () => {
+    if (remainingBalance === 0) {
+      addMonthlyBudget(monthlyIncome, allExpensesBudget).then(
+        (monthlyBudget) => {
+          console.log(monthlyBudget);
+        }
+      );
+    }
+  };
   const onPressEnter = (e: KeyboardEvent) => {
     if (
       e?.key === 'Enter' &&
       (placeholder?.includes('income') ? !!value : true) &&
-      value <= remainingBallance
+      remainingBallance >= 0
     ) {
       try {
         goForward();
@@ -52,19 +65,23 @@ const BudgetForm = () => {
     }
   };
   return (
-    <div className='w-full grid place-items-center'>
-      {currentInputIdx > 0 && (
+    <div className='py-24  px-12 w-full budget-message'>
+      {currentInputIdx > 0 ? (
         <p
           className={`${
             remainingBalance < 0 ? 'text-error' : 'text-primary'
-          } text-center mb-16 text-4xl`}
+          } text-center mb-8 md:mb-16 text-4xl`}
         >
           <p className='text-light text-lg'>Remaining Balance: </p>{' '}
           {remainingBalance.toLocaleString()}
         </p>
+      ) : (
+        <p className='text-light text-2xl pb-4 text-center'>
+          Setup Your Monthly Budget Now!
+        </p>
       )}
-      <div className='w-full md:w-[70%]'>
-        <div>
+      <div className='min-w-full md:w-[30rem] lg:w-[50rem]'>
+        <div className='w-full'>
           <div className='relative z-0 px-2 w-full group text-light'>
             <label
               htmlFor={`${currentInput}`}
@@ -96,20 +113,37 @@ const BudgetForm = () => {
               }}
             />
           </div>
-          <div className='flex text-4xl justify-between mt-8 text-primary'>
+          <div className='flex text-4xl justify-between items-center mt-8 text-primary'>
             {currentInputIdx > 0 && (
               <>
                 <BsFillArrowLeftCircleFill
                   onClick={goBackward}
                   className='cursor-pointer'
                 />
+                <p className='text-base'>
+                  {currentInputIdx} / {Object.keys(currentInput)?.length - 1}
+                </p>
                 <BsFillArrowRightCircleFill
-                  className='ml-4 cursor-pointer'
+                  className={`cursor-pointer ${
+                    currentInputIdx < Object.keys(currentInput)?.length - 1
+                      ? 'visible'
+                      : 'invisible'
+                  }`}
                   onClick={goForward}
                 />
               </>
             )}
           </div>
+          {currentInputIdx === Object.keys(currentInput)?.length - 1 && (
+            <div className='mt-12 flex justify-center items-center'>
+              <button
+                onClick={submitBudget}
+                className='bg-primary text-secondary text-sm rounded-lg px-4 py-2'
+              >
+                Submit
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

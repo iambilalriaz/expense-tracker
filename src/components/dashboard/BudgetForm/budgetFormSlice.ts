@@ -1,28 +1,8 @@
+import { ExpenseBudget } from '@data-types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 type InitialState = {
   monthlyIncome: number | string;
-  expenseBudget: {
-    medical: number | string;
-    shopping: number | string;
-    utilityBills: number | string;
-    rents: number | string;
-    fees: number | string;
-    food: number | string;
-    mobile: number | string;
-    maintainance: number | string;
-    remittance: number | string;
-    gifts: number | string;
-    committee: number | string;
-    lendAmount: number | string;
-    borrowAmount: number | string;
-    charity: number | string;
-    investments: number | string;
-    transportation: number | string;
-    entertainment: number | string;
-    subscriptions: number | string;
-    insurance: number | string;
-    other: number | string;
-  };
+  expenseBudget: ExpenseBudget;
 };
 const regex = /^[1-9]\d*$/;
 
@@ -48,6 +28,8 @@ const initialState: InitialState = {
     entertainment: 0,
     subscriptions: 0,
     insurance: 0,
+    personalCare: 0,
+    savings: 0,
     other: 0,
   },
 };
@@ -197,6 +179,19 @@ export const budgetFormSlice = createSlice({
         ? action.payload
         : 0;
     },
+    setPersonalCareExpenseBudget: (
+      state,
+      action: PayloadAction<number | string>
+    ) => {
+      state.expenseBudget.personalCare = regex.test(`${action.payload}`)
+        ? action.payload
+        : 0;
+    },
+    setSavingsBudget: (state, action: PayloadAction<number | string>) => {
+      state.expenseBudget.savings = regex.test(`${action.payload}`)
+        ? action.payload
+        : 0;
+    },
 
     setOtherExpenseBudget: (state, action: PayloadAction<number | string>) => {
       state.expenseBudget.other = regex.test(`${action.payload}`)
@@ -226,6 +221,8 @@ export const {
   setEntertainmentExpenseBudget,
   setSubscriptionsExpenseBudget,
   setInsuranceExpenseBudget,
+  setPersonalCareExpenseBudget,
+  setSavingsBudget,
   setOtherExpenseBudget,
 } = budgetFormSlice.actions;
 

@@ -28,7 +28,7 @@ const Navbar = () => {
         >
           <RxHamburgerMenu />
         </p>
-        <div className='md:flex hidden'>
+        <div className='md:flex hidden cursor-pointer'>
           {navLinks?.map((link) => (
             <NavLink isMobile={false} link={link} key={link?.path} />
           ))}

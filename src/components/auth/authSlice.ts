@@ -2,7 +2,7 @@ import { RootState } from '@app/store';
 import { User } from '@data-types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { signInWithGoogle } from '@services/firebase';
-import { inserUser } from '@services/queries';
+import { getUserId, inserUser } from '@services/queries';
 type InitialState = {
   appUser: User | null;
   isLoggingIn: boolean;
@@ -15,6 +15,9 @@ const initialState: InitialState = {
 export const userLogin = createAsyncThunk('auth/login', async () => {
   try {
     const { user, additionalUserInfo } = await signInWithGoogle();
+    const userId = additionalUserInfo?.isNewUser
+      ? crypto.randomUUID()
+      : await getUserId(user?.email as string);
     const {
       displayName: name,
       email,
@@ -24,7 +27,6 @@ export const userLogin = createAsyncThunk('auth/login', async () => {
       email: string;
       photoURL: string;
     };
-    const userId = crypto.randomUUID();
     await inserUser(userId, name, email, photoURL);
     const appUser = {
       userId,

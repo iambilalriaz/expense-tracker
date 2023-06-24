@@ -1,21 +1,36 @@
 .welcome-message {
-  animation: welcome-anim 3s forwards;
+  animation: welcome-anim 6s forwards;
 }
 @keyframes welcome-anim {
   0% {
     opacity: 0;
-    display: none;
+    transform: translateX(-100%);
   }
   25% {
     opacity: 1;
-    display: block;
+    transform: translateX(0);
   }
   50% {
     opacity: 1;
-    display: block;
+    transform: translateX(0);
   }
   100% {
     opacity: 0;
-    display: none;
+    transform: translateX(100%);
+  }
+}
+.budget-message {
+  /* opacity: 0;
+  transform: translateX(-100%); */
+  animation: budget-anim 2s forwards;
+}
+@keyframes budget-anim {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

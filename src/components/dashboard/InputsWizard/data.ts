@@ -20,6 +20,8 @@ import {
   setSubscriptionsExpenseBudget,
   setTransportationExpenseBudget,
   setUtilityBillsExpenseBudget,
+  setPersonalCareExpenseBudget,
+  setSavingsBudget,
 } from '../BudgetForm/budgetFormSlice';
 import {
   getCharityExpenseBudget,
@@ -43,6 +45,8 @@ import {
   getSubscriptionsExpenseBudget,
   getTransportationExpenseBudget,
   getUtilityBillsExpenseBudget,
+  getPersonalCareExpenseBudget,
+  getSavingsBudget,
 } from '../BudgetForm/selectors';
 
 export const currentInput = {
@@ -147,6 +151,16 @@ export const currentInput = {
     setterFn: setInsuranceExpenseBudget,
   },
   20: {
+    placeholder: 'personal care',
+    getterFn: getPersonalCareExpenseBudget,
+    setterFn: setPersonalCareExpenseBudget,
+  },
+  21: {
+    placeholder: 'savings',
+    getterFn: getSavingsBudget,
+    setterFn: setSavingsBudget,
+  },
+  22: {
     placeholder: 'other expenses',
     getterFn: getOtherExpenseBudget,
     setterFn: setOtherExpenseBudget,
@@ -154,6 +168,7 @@ export const currentInput = {
 };
 
 export type InputIndex =
+  | 0
   | 1
   | 2
   | 3
@@ -173,4 +188,6 @@ export type InputIndex =
   | 17
   | 18
   | 19
-  | 20;
+  | 20
+  | 21
+  | 22;
