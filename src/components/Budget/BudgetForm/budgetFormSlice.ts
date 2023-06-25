@@ -29,6 +29,7 @@ const initialState: InitialState = {
     subscriptions: 0,
     insurance: 0,
     personalCare: 0,
+    fuel: 0,
     savings: 0,
     other: 0,
   },
@@ -187,6 +188,11 @@ export const budgetFormSlice = createSlice({
         ? action.payload
         : 0;
     },
+    setFuelExpenseBudget: (state, action: PayloadAction<number | string>) => {
+      state.expenseBudget.fuel = regex.test(`${action.payload}`)
+        ? action.payload
+        : 0;
+    },
     setSavingsBudget: (state, action: PayloadAction<number | string>) => {
       state.expenseBudget.savings = regex.test(`${action.payload}`)
         ? action.payload
@@ -222,6 +228,7 @@ export const {
   setSubscriptionsExpenseBudget,
   setInsuranceExpenseBudget,
   setPersonalCareExpenseBudget,
+  setFuelExpenseBudget,
   setSavingsBudget,
   setOtherExpenseBudget,
 } = budgetFormSlice.actions;

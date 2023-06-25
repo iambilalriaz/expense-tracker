@@ -8,20 +8,20 @@
 @keyframes open-menu {
   from {
     display: none;
-    transform: translateY(-100vh);
+    transform: translateX(-100vw);
   }
   to {
     display: block;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 @keyframes close-menu {
   from {
     display: block;
-    transform: translateY(0);
+    transform: translateX(0);
   }
   to {
     display: none;
-    transform: translateY(-100vh);
+    transform: translateX(-100vw);
   }
 }

@@ -1,7 +1,7 @@
 export const navLinks = [
   {
-    path: '/dashboard',
-    name: 'Dashboard',
+    path: '/home',
+    name: 'Home',
   },
   {
     path: '/profile',

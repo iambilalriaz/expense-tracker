@@ -22,8 +22,8 @@ export const getUserMonthlyBudget = createAsyncThunk(
     }
   }
 );
-export const dashboardSlice = createSlice({
-  name: 'dashboard',
+export const homeSlice = createSlice({
+  name: 'home',
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -44,4 +44,4 @@ export const dashboardSlice = createSlice({
   },
 });
 
-export default dashboardSlice.reducer;
+export default homeSlice.reducer;

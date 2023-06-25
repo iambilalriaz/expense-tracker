@@ -17,7 +17,7 @@ const Login = () => {
   };
   useEffect(() => {
     if (appUser) {
-      navigate('/dashboard');
+      navigate('/home');
     } else {
       navigate('/login');
     }

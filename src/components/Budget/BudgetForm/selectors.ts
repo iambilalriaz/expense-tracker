@@ -43,6 +43,8 @@ export const getInsuranceExpenseBudget = (state: RootState) =>
 
 export const getPersonalCareExpenseBudget = (state: RootState) =>
   state.budgetForm.expenseBudget.personalCare;
+export const getFuelExpenseBudget = (state: RootState) =>
+  state.budgetForm.expenseBudget.fuel;
 export const getSavingsBudget = (state: RootState) =>
   state.budgetForm.expenseBudget.savings;
 
@@ -73,6 +75,7 @@ export const getTotalExpenseBudget = (state: RootState) =>
   +getSubscriptionsExpenseBudget(state) +
   +getInsuranceExpenseBudget(state) +
   +getPersonalCareExpenseBudget(state) +
+  +getFuelExpenseBudget(state) +
   +getSavingsBudget(state) +
   +getOtherExpenseBudget(state);
 

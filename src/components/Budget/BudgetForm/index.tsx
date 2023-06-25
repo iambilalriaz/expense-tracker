@@ -12,6 +12,9 @@ import { useAppDispatch, useAppSelector } from '@app/hooks';
 import { InputIndex, currentInput } from '../InputsWizard/data';
 import '../index.css';
 import { addMonthlyBudget } from '@services/queries';
+import { getUserMonthlyBudget } from '../../Home/homeSlice';
+import Input from '@components/common/Input';
+import Button from '@components/common/Button';
 const BudgetForm = () => {
   const remainingBalance = useAppSelector(getRemainingBalance);
   const monthlyIncome = useAppSelector(getMonthlyIncome);
@@ -44,11 +47,9 @@ const BudgetForm = () => {
 
   const submitBudget = () => {
     if (remainingBalance === 0) {
-      addMonthlyBudget(monthlyIncome, allExpensesBudget).then(
-        (monthlyBudget) => {
-          console.log(monthlyBudget);
-        }
-      );
+      addMonthlyBudget(monthlyIncome, allExpensesBudget).then(() => {
+        dispatch(getUserMonthlyBudget());
+      });
     }
   };
   const onPressEnter = (e: KeyboardEvent) => {
@@ -67,53 +68,32 @@ const BudgetForm = () => {
   return (
     <div className='py-24  px-12 w-full budget-message'>
       {currentInputIdx > 0 ? (
-        <p
+        <div
           className={`${
             remainingBalance < 0 ? 'text-error' : 'text-primary'
-          } text-center mb-8 md:mb-16 text-4xl`}
+          } text-center mb-8 md:mb-16 text-4xl md:text-6xl`}
         >
-          <p className='text-light text-lg'>Remaining Balance: </p>{' '}
+          <p className='text-secondary text-lg'>Remaining Balance: </p>{' '}
           {remainingBalance.toLocaleString()}
-        </p>
+        </div>
       ) : (
-        <p className='text-light text-2xl pb-4 text-center'>
+        <p className='text-secondary text-2xl pb-4 text-center'>
           Setup Your Monthly Budget Now!
         </p>
       )}
       <div className='min-w-full md:w-[30rem] lg:w-[50rem]'>
         <div className='w-full'>
-          <div className='relative z-0 px-2 w-full group text-light'>
-            <label
-              htmlFor={`${currentInput}`}
-              className={`relative ${
-                value
-                  ? 'top-1 text-sm md:text-lg text-primary'
-                  : 'top-[34px] md:top-9 text-xl md:text-2xl text-light'
-              } w-auto`}
-            >
-              {`Enter ${
-                currentInputIdx > 0 ? `${placeholder} budget` : placeholder
-              }...`}
-            </label>
-            <input
-              className='p-0 outline-none bg-transparent w-full border-b-2 border-primary text-2xl md:text-3xl py-1'
-              id={`${currentInput}`}
-              type='number'
-              autoFocus={true}
-              value={value || ''}
-              onChange={onInputChange}
-              onKeyDown={onPressEnter}
-              onBlur={(e) => {
-                if (!e.target.value) {
-                  e?.target?.previousSibling?.classList?.remove(
-                    'top-1',
-                    'text-sm'
-                  );
-                }
-              }}
-            />
-          </div>
-          <div className='flex text-4xl justify-between items-center mt-8 text-primary'>
+          <Input
+            id={`budget-input-${currentInputIdx}`}
+            type='text'
+            onInputChange={onInputChange}
+            onPressEnter={onPressEnter}
+            value={value}
+            placeholder={`Enter ${
+              currentInputIdx > 0 ? `${placeholder} budget` : placeholder
+            }...`}
+          />
+          <div className='flex text-4xl justify-between items-center mt-8 text-secondary'>
             {currentInputIdx > 0 && (
               <>
                 <BsFillArrowLeftCircleFill
@@ -136,12 +116,7 @@ const BudgetForm = () => {
           </div>
           {currentInputIdx === Object.keys(currentInput)?.length - 1 && (
             <div className='mt-12 flex justify-center items-center'>
-              <button
-                onClick={submitBudget}
-                className='bg-primary text-secondary text-sm rounded-lg px-4 py-2'
-              >
-                Submit
-              </button>
+              <Button styles='mx-auto' title='Submit' onClick={submitBudget} />
             </div>
           )}
         </div>

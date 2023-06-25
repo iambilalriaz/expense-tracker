@@ -35,6 +35,22 @@ export type ExpenseBudget = {
   subscriptions: number | string;
   insurance: number | string;
   personalCare: number | string;
+  fuel: number | string;
   savings: number | string;
   other: number | string;
+};
+
+export type Expense = {
+  id: string;
+  title: string;
+  type: string;
+  amount: number | string;
+};
+export type UserExpense = {
+  id: string;
+  title: string;
+  type: string;
+  amount: number | string;
+  date: string;
+  userId: string;
 };

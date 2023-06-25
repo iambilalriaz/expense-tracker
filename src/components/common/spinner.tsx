@@ -1,11 +1,16 @@
-import spinner from '@assets/spinner.json';
+import primarySpinner from '@assets/primarySpinner.json';
+import seondarySpinner from '@assets/secondarySpinner.json';
 import LottiePlayer from 'react-lottie-player';
 
-const Spinner = () => {
+const Spinner = ({
+  variant = 'primary',
+}: {
+  variant?: 'primary' | 'secondary';
+}) => {
   return (
     <LottiePlayer
       loop
-      animationData={spinner}
+      animationData={variant === 'secondary' ? seondarySpinner : primarySpinner}
       play
       style={{ width: 150, height: 150 }}
     />

@@ -9,7 +9,12 @@ import {
 import { firestoreDB } from './firebase';
 import { getAppUser } from '@utils';
 import moment from 'moment';
-import { ExpenseBudget, MonthlyBudget } from '@data-types';
+import {
+  Expense,
+  ExpenseBudget,
+  MonthlyBudget,
+  UserExpense,
+} from '@data-types';
 
 export const getUserId = async (email: string) => {
   const requestUser = query(
@@ -88,4 +93,37 @@ export const getUserAllBudgets = async () => {
     allBudgets.push(docuemnt.data() as MonthlyBudget);
   });
   return allBudgets;
+};
+
+export const addNewExpenses = async (expenses: Expense[]) => {
+  const appUser = getAppUser();
+  const date = moment().format('MMMM DD, YYYY');
+  expenses?.forEach(async (expense) => {
+    await setDoc(
+      doc(firestoreDB, 'expenses', `expense-${crypto.randomUUID()}`),
+      {
+        userId: appUser?.userId,
+        date,
+        title: expense?.title,
+        type: expense?.type,
+        amount: expense?.amount,
+        id: expense?.id,
+      }
+    );
+  });
+};
+
+export const getUserExpenses = async () => {
+  const userId = getAppUser()?.userId as string;
+
+  const requestQuery = query(
+    collection(firestoreDB, 'expenses'),
+    where('userId', '==', userId)
+  );
+  const response = await getDocs(requestQuery);
+  const result: UserExpense[] = [];
+  response?.forEach((document) => {
+    result.push(document.data() as UserExpense);
+  });
+  return result;
 };

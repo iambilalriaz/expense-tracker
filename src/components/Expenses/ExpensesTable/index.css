@@ -1,0 +1,7 @@
+.expenses-table th,
+.expenses-table td {
+  padding: 1rem;
+  text-align: left;
+  border: 1px solid black;
+  margin-top: 2rem;
+}

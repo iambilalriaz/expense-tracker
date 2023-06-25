@@ -22,6 +22,7 @@ import {
   setUtilityBillsExpenseBudget,
   setPersonalCareExpenseBudget,
   setSavingsBudget,
+  setFuelExpenseBudget,
 } from '../BudgetForm/budgetFormSlice';
 import {
   getCharityExpenseBudget,
@@ -47,6 +48,7 @@ import {
   getUtilityBillsExpenseBudget,
   getPersonalCareExpenseBudget,
   getSavingsBudget,
+  getFuelExpenseBudget,
 } from '../BudgetForm/selectors';
 
 export const currentInput = {
@@ -156,16 +158,111 @@ export const currentInput = {
     setterFn: setPersonalCareExpenseBudget,
   },
   21: {
+    placeholder: 'fuel',
+    getterFn: getFuelExpenseBudget,
+    setterFn: setFuelExpenseBudget,
+  },
+  22: {
     placeholder: 'savings',
     getterFn: getSavingsBudget,
     setterFn: setSavingsBudget,
   },
-  22: {
+  23: {
     placeholder: 'other expenses',
     getterFn: getOtherExpenseBudget,
     setterFn: setOtherExpenseBudget,
   },
 };
+export const expenseTypes = [
+  {
+    value: 'medical',
+    label: 'Medical',
+  },
+  {
+    value: 'shopping',
+    label: 'Shopping',
+  },
+  {
+    value: 'utilityBills',
+    label: 'Utility Bills',
+  },
+  {
+    value: 'fees',
+    label: 'Fees',
+  },
+  {
+    value: 'food',
+    label: 'Food',
+  },
+  {
+    value: 'mobile',
+    label: 'Mobile',
+  },
+  {
+    value: 'maintainance',
+    label: 'Maintainance',
+  },
+  {
+    value: 'remittance',
+    label: 'Remittance',
+  },
+  {
+    value: 'gifts',
+    label: 'Gifts',
+  },
+  {
+    value: 'committee',
+    label: 'Committee',
+  },
+  {
+    value: 'lendAmount',
+    label: 'Lend Amount',
+  },
+  {
+    value: 'borrowAmount',
+    label: 'Borrow Amount',
+  },
+  {
+    value: 'charity',
+    label: 'Charity',
+  },
+  {
+    value: 'investments',
+    label: 'Investments',
+  },
+  {
+    value: 'transportation',
+    label: 'Transportation',
+  },
+  {
+    value: 'entertainment',
+    label: 'Entertainment',
+  },
+  {
+    value: 'subscriptions',
+    label: 'Subscriptions',
+  },
+  {
+    value: 'insurance',
+    label: 'Insurance',
+  },
+  {
+    value: 'personalCare',
+    label: 'Personal Care',
+  },
+  {
+    value: 'fuel',
+    label: 'Fuel',
+  },
+  {
+    value: 'savings',
+    label: 'Savings',
+  },
+  {
+    value: 'other',
+    label: 'Other Expenses',
+  },
+];
 
 export type InputIndex =
   | 0
